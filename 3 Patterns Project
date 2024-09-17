@@ -37,6 +37,7 @@ void button() {
 
 void drawPattern() {
   background(0);
+
   if (patternSelect == 0) {
     while (pt1x < 1000) {
       pattern1(pt1x, -55);
@@ -114,9 +115,25 @@ void pattern3(int x, int y, int s) {
 
 void mousePressed() {
 
+  //if (dist(buttonX, buttonY, mouseX, mouseY) < buttonR/2) {
+  //    patternSelect = patternSelect + 1;
+
+  //    drawPattern();
+  //}
+
   if (dist(buttonX, buttonY, mouseX, mouseY) < buttonR/2) {
-      patternSelect = (patternSelect + 1) % 3;
-      
-      drawPattern();
+    patternSelect++;
+    if (patternSelect == 3) {
+
+      patternSelect = 0;
+    }
+    
+    drawPattern();
+    
+    pt1x = -20;
+    pt2s = 0;
+    pt3s = 0;
+    
+    println(patternSelect);
   }
 }
