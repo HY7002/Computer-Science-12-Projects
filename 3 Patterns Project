@@ -114,13 +114,6 @@ void pattern3(int x, int y, int s) {
 }
 
 void mousePressed() {
-
-  //if (dist(buttonX, buttonY, mouseX, mouseY) < buttonR/2) {
-  //    patternSelect = patternSelect + 1;
-
-  //    drawPattern();
-  //}
-
   if (dist(buttonX, buttonY, mouseX, mouseY) < buttonR/2) {
     patternSelect++;
     if (patternSelect == 3) {
