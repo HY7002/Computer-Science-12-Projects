@@ -1,15 +1,15 @@
-// Instance Variables
-int x, y, w, h;
-boolean clicked;
-color highlight, normal;
-String text;
+//// Instance Variables
+//int x, y, w, h;
+//boolean clicked;
+//color highlight, normal;
+//String text;
 
-class Button {  
-  //// Instance Variables
-  //int x, y, w, h;
-  //boolean clicked;
-  //color highlight, normal;
-  //String text;
+class Button {
+  // Instance Variables
+  int x, y, w, h;
+  boolean clicked;
+  color highlight, normal;
+  String text;
 
   //Constructor
   Button(String t, int _x, int _y, int _w, int _h, color norm, color high) {
@@ -22,28 +22,35 @@ class Button {
     normal = norm;
     clicked = false;
   }
-}
 
-// Behavioural Functions
-void show() {
-  //Rectangle
-  rectMode(CENTER);
-  if (mouseX > x-w/2 && mouseX < x+w/2 && mouseY > y-h/2 && mouseY < y+h/2) {
-    fill(highlight);
-  } else {
-    fill(normal);
+
+  // Behavioural Functions
+  void show() {
+    //Rectangle
+    rectMode(CENTER);
+    if (mouseX > x-w/2 && mouseX < x+w/2 && mouseY > y-h/2 && mouseY < y+h/2) {
+      fill(highlight);
+    } else {
+      fill(normal);
+    }
+    stroke(0);
+    strokeWeight(4);
+    rect(x, y, w, h, 50);
+
+    //Text Label
+    textAlign(CENTER, CENTER);
+    if (mouseX > x-w/2 && mouseX < x+w/2 && mouseY > y-h/2 && mouseY < y+h/2) {
+      fill(normal);
+    } else {
+      fill(highlight);
+    }
+    textSize(w/4);
+    text(text, x, y);
+
+    if (mouseReleased && mouseX > x-w/2 && mouseX < x+w/2 && mouseY > y-h/2 && mouseY < y+h/2) {
+      clicked = true;
+    } else {
+      clicked = false;
+    }
   }
-  stroke(0);
-  strokeWeight(4);
-  rect(x, y, w, h, 50);
-  
-  //Text Label
-  textAlign(CENTER, CENTER);
-  if (mouseX > x-w/2 && mouseX < x+w/2 && mouseY > y-h/2 && mouseY < y+h/2) {
-    fill(normal);
-  } else {
-    fill(highlight);
-  }
-  textSize(w/4);
-  text(text, x, y);
 }
