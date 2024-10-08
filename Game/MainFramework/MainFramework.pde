@@ -15,9 +15,10 @@ float leftx, lefty, leftd, rightx, righty, rightd;
 // Ball Variables
 float vx, vy;
 float ballx, bally, balld;
+color contactColor;
 
 //Scoring
-int timer;
+int leftscore, rightscore, timer;
 
 void setup() {
   size(1500, 1000);
@@ -37,6 +38,7 @@ void setup() {
   ballx = width/2;
   bally = height/2;
   balld = 70;
+  contactColor = 0;
   
   vx = 0;
   vy = 0;

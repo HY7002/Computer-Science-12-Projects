@@ -1,10 +1,17 @@
 void game() {
   timer--;
-  
+
   background(0, 128, 0);
 
+  //Scoreboard
+  textSize(70);
+  fill(135, 206, 235);
+  text(leftscore, width/4, 100);
+  fill(255, 127, 127);
+  text(rightscore, 3*width/4, 100);
+  fill(0);
+
   //Soccer Field
-  
   //Center
   noFill();
   stroke(255);
@@ -23,8 +30,8 @@ void game() {
   rect(0, 500, 200, 300);
   fill(255);
   circle(200, 500, 20);
-  
-  
+
+
   //Right Side
   noFill();
   circle(1300, 500, 300);
@@ -35,6 +42,14 @@ void game() {
   fill(255);
   circle(1300, 500, 20);
 
+  // Left Goal
+  noStroke();
+  fill(255, 255, 255, 50);
+  rect(30, height/2, 80, 250);
+
+  // Right Goal
+  rect(1465, height/2, 80, 250);
+
   // Left Player
   strokeWeight(3);
   stroke(0);
@@ -44,81 +59,130 @@ void game() {
   // Right Player
   fill(255, 127, 127);
   circle(rightx, righty, rightd);
-  
+
   // Ball
   fill(255);
   strokeWeight(5);
-  stroke(0);
+  stroke(contactColor);
   circle(ballx, bally, balld);
-  
+
   //Ball Movement
   if (timer < 0) {
     ballx = ballx + vx;
     bally = bally + vy;
+
+    vx = vx * 0.97;
+    vy = vy * 0.97;
   }
-  
+
   // Ball-Paddle Collisions
   //Ball Collision Left Paddle
   if (dist(leftx, lefty, ballx, bally) <= 100) {
     vx = (ballx - leftx)/15;
     vy = (bally - lefty)/15;
     
-    println(vx);
-    
+    contactColor= #87CEEB;
   }
-
+  
   // Ball Collision Right Paddle
   circle(ballx, bally, balld);
   if (dist(rightx, righty, ballx, bally) <= 100) {
     vx = (ballx - rightx)/15;
     vy = (bally - righty)/15;
+    
+    contactColor= #FF7F7F;
   }
-  
+
   // ---------- \\
-  
+
   // Movement
   // Left Paddle
   if (wkey == true) lefty = lefty - 3;
   if (skey == true) lefty = lefty + 3;
   if (dkey == true) leftx = leftx + 3;
   if (akey == true) leftx = leftx - 3 ;
-  
+
   // Movement
   // Right Paddle
   if (upkey == true) righty = righty - 3;
   if (downkey == true) righty = righty + 3;
   if (rightkey == true) rightx = rightx + 3;
   if (leftkey == true) rightx = rightx - 3 ;
-  
-  
+
+  // ---------- \\
+
+  // Score
+  // Right Score
+  if (ballx < 100) {
+    rightscore++;
+
+    // Ball Reset
+    ballx = width/2;
+    bally = height/2;
+    vx = 0;
+    vy = 0;
+    contactColor = #000000;
+
+    // Left Player Reset
+    leftx = 100;
+    lefty = height/2;
+
+    // Right Player Reset
+    rightx = 1400;
+    righty = height/2;
+  }
+
+  // Right Score
+  if (ballx > 1400) {
+    leftscore++;
+
+    // Ball Reset
+    ballx = width/2;
+    bally = height/2;
+    vx = 0;
+    vy = 0;
+    contactColor = #000000;
+
+    // Left Player Reset
+    leftx = 100;
+    lefty = height/2;
+
+    // Right Player Reset
+    rightx = 1400;
+    righty = height/2;
+  }
+
+  // ---------- \\
+
   // Ball Boundry Restrictor
   // X Cord.
-    if (ballx >= 1500) {
+  if (ballx >= 1500) {
     ballx = 1500;
   }
-  
+
   if (ballx <= 0) {
     ballx = 0;
-  } 
-  
+  }
+
   // Y Cord.
   if (bally >= 1000) {
     bally = 1000;
   }
-  
+
   if (bally <= 0) {
     bally = 0;
-  } 
-  
-    // Ball Collision
-    if (bally <= balld/2 || bally >= height-balld/2) {
-      vy = vy * -1;
-    }
+  }
 
-    if (ballx <= balld/2 || ballx >= width-balld/2) {
-      vx = vx * -1;
-    }
-  
+  // ---------- \\
+
+  // Ball Collision
+  if (bally <= balld/2 || bally >= height-balld/2) {
+    vy = vy * -1;
+  }
+
+  if (ballx <= balld/2 || ballx >= width-balld/2) {
+    vx = vx * -1;
+  }
 }
 
 void gameClicks() {
