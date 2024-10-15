@@ -10,6 +10,7 @@ color white = color(255);
 
 //assets
 PImage redBird;
+PImage earthPic;
 
 // Cloud Variables
 int cloudForm1, cloudForm2, cloudForm3;
@@ -26,6 +27,7 @@ void setup() {
 
   //load resources
   redBird = loadImage("red-bird.png");
+  earthPic = loadImage("earth.png");
 
   //initialise world
   makeWorld();
@@ -140,19 +142,17 @@ void makeBlob() {
 //===========================================================================================
 
 void makeBox() {
-  FBox box = new FBox(25, 100);
-  box.setPosition(random(width), -5);
+  FBox earth = new FBox(25, 100);
+  earth.setPosition(random(width), -5);
 
   //set visuals
-  box.setStroke(0);
-  box.setStrokeWeight(2);
-  box.setFillColor(green);
+  earth.attachImage(earthPic);
 
   //set physical properties
-  box.setDensity(0.2);
-  box.setFriction(1);
-  box.setRestitution(0.25);
-  world.add(box);
+  earth.setDensity(0.2);
+  earth.setFriction(1);
+  earth.setRestitution(0.25);
+  world.add(earth);
 }
 
 //===========================================================================================
