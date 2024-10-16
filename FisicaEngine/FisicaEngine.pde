@@ -2,6 +2,7 @@ import fisica.*;
 
 //palette
 color blue   = color(29, 178, 242);
+color blue2  = color(0, 0, 255);
 color brown  = color(166, 120, 24);
 color green  = color(74, 163, 57);
 color red    = color(224, 80, 61);
@@ -15,6 +16,7 @@ PImage earthPic;
 // Cloud Variables
 int cloudForm1, cloudForm2, cloudForm3;
 
+FPoly blobbox;
 FPoly topPlatform;
 FPoly bottomPlatform;
 
@@ -38,6 +40,7 @@ void setup() {
   cloudForm3 = 0;
 
   //add terrain to world
+  makeBlobBox();
   makeTopPlatform();
   makeBottomPlatform();
 }
@@ -139,10 +142,33 @@ void makeBlob() {
   world.add(blob);
 }
 
+void makeBlobBox() {
+  FPoly blobbox = new FPoly();
+  blobbox.setPosition(random(width), -5);
+  
+  //Verticies
+  blobbox.vertex(10, 50);
+  blobbox.vertex(60, 50);
+  blobbox.vertex(60, 100);
+  blobbox.vertex(10, 100);
+
+  //set visuals
+  blobbox.setStroke(0);
+  blobbox.setStrokeWeight(2);
+  blobbox.setFillColor(blue2);
+
+  //set physical properties
+  blobbox.setDensity(0.2);
+  blobbox.setFriction(1);
+  blobbox.setRestitution(0.25);
+  
+  world.add(blobbox);
+}
+
 //===========================================================================================
 
-void makeBox() {
-  FBox earth = new FBox(25, 100);
+void makeEarth() {
+  FCircle earth = new FCircle(48);
   earth.setPosition(random(width), -5);
 
   //set visuals
@@ -156,6 +182,21 @@ void makeBox() {
 }
 
 //===========================================================================================
+void makeBox() {
+  FBox box = new FBox(25, 100);
+  box.setPosition(random(width), -5);
+
+  //set visuals
+  box.setStroke(0);
+  box.setStrokeWeight(2);
+  box.setFillColor(green);
+
+  //set physical properties
+  box.setDensity(0.2);
+  box.setFriction(1);
+  box.setRestitution(0.25);
+  world.add(box);
+}
 
 void makeBird() {
   FCircle bird = new FCircle(48);
@@ -199,19 +240,22 @@ void draw() {
   println("x: " + mouseX + " y: " + mouseY);
   background(blue);
   
+  //Cloud Formations Back
   cloudForm2();
   cloudForm3();
 
   if (frameCount % 20 == 0) {  //Every 20 frames ...
     makeCircle();
     makeBlob();
+    makeBlobBox();
     makeBox();
     makeBird();
+    makeEarth();
   }
   world.step();  //get box2D to calculate all the forces and new positions
   world.draw();  //ask box2D to convert this world to processing screen coordinates and draw
 
-  //Cloud Formations
+  //Cloud Formations Front
   cloudForm1();
 
 
