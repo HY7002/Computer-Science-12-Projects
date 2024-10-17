@@ -9,12 +9,20 @@ color red    = color(224, 80, 61);
 color yellow = color(242, 215, 16);
 color white = color(255);
 
+
 //assets
 PImage redBird;
 PImage earthPic;
 
 // Cloud Variables
 int cloudForm1, cloudForm2, cloudForm3;
+
+// Button Variables
+int gravButton, polyButton;
+boolean mouseReleased;
+boolean wasPressed;
+
+Button[] myButtons;
 
 FPoly blobbox;
 FPoly topPlatform;
@@ -23,6 +31,51 @@ FPoly bottomPlatform;
 //fisica
 FWorld world;
 
+// Buttons Handler
+class Button {
+  int x, y, w, h;
+  boolean clicked;
+  color highlight, normal;
+  String text;
+  
+  // Constructor
+  Button(String t, int _x, int _y, int _w, int _h, color norm, color high) {
+    x = _x;
+    y = _y;
+    w = _w;
+    h = _h;
+    text = t;
+    highlight = high;
+    normal = norm;
+    clicked = false;
+  }
+  
+  // Behavioural Functions
+  void show() {
+    drawButton();
+    drawLabel();
+    checkForClick();
+  }
+  
+  boolean touchingMouse() {
+    return mouseX > x-w/2 && mouseX < x+w/2 && mouseY > y-h/2 && mouseY < y+h/2;
+  }
+  
+  void drawButton() {
+    rectMode(CENTER);
+    if (touchingMouse()) {
+      fill(highlight);
+    } else {
+      fill(normal);
+    }
+    stroke(0);
+    strokeWeight(4);
+    rect(x, y, w, h, 50);
+  }
+}
+
+//===========================================================================================
+
 void setup() {
   //make window
   fullScreen();
@@ -30,6 +83,10 @@ void setup() {
   //load resources
   redBird = loadImage("red-bird.png");
   earthPic = loadImage("earth.png");
+
+  // Button Initializer
+  myButtons = new Button[2];
+  
 
   //initialise world
   makeWorld();
@@ -40,7 +97,7 @@ void setup() {
   cloudForm3 = 0;
 
   //add terrain to world
-  makeBlobBox();
+  makeBlueBox();
   makeTopPlatform();
   makeBottomPlatform();
 }
@@ -142,27 +199,27 @@ void makeBlob() {
   world.add(blob);
 }
 
-void makeBlobBox() {
-  FPoly blobbox = new FPoly();
-  blobbox.setPosition(random(width), -5);
-  
+void makeBlueBox() {
+  FPoly bluebox = new FPoly();
+  bluebox.setPosition(random(width), -5);
+
   //Verticies
-  blobbox.vertex(10, 50);
-  blobbox.vertex(60, 50);
-  blobbox.vertex(60, 100);
-  blobbox.vertex(10, 100);
+  bluebox.vertex(10, 50);
+  bluebox.vertex(60, 50);
+  bluebox.vertex(60, 100);
+  bluebox.vertex(10, 100);
 
   //set visuals
-  blobbox.setStroke(0);
-  blobbox.setStrokeWeight(2);
-  blobbox.setFillColor(blue2);
+  bluebox.setStroke(0);
+  bluebox.setStrokeWeight(2);
+  bluebox.setFillColor(blue2);
 
   //set physical properties
-  blobbox.setDensity(0.2);
-  blobbox.setFriction(1);
-  blobbox.setRestitution(0.25);
-  
-  world.add(blobbox);
+  bluebox.setDensity(0.2);
+  bluebox.setFriction(1);
+  bluebox.setRestitution(0.25);
+
+  world.add(bluebox);
 }
 
 //===========================================================================================
@@ -182,6 +239,7 @@ void makeEarth() {
 }
 
 //===========================================================================================
+
 void makeBox() {
   FBox box = new FBox(25, 100);
   box.setPosition(random(width), -5);
@@ -194,7 +252,7 @@ void makeBox() {
   //set physical properties
   box.setDensity(0.2);
   box.setFriction(1);
-  box.setRestitution(0.25);
+  box.setRestitution(2);
   world.add(box);
 }
 
@@ -223,6 +281,8 @@ void cloudForm1() {
 }
 
 void cloudForm2() {
+  fill(255);
+  stroke(255);
   ellipse(cloudForm2, 900, 300, 150);
   ellipse(cloudForm2+200, 950, 300, 150);
   ellipse(cloudForm2+90, 1020, 300, 150);
@@ -230,6 +290,8 @@ void cloudForm2() {
 }
 
 void cloudForm3() {
+  fill(255);
+  stroke(255);
   ellipse(cloudForm3, 100, 300, 150);
   ellipse(cloudForm3+200, 150, 300, 150);
   ellipse(cloudForm3+90, 220, 300, 150);
@@ -239,7 +301,7 @@ void cloudForm3() {
 void draw() {
   println("x: " + mouseX + " y: " + mouseY);
   background(blue);
-  
+
   //Cloud Formations Back
   cloudForm2();
   cloudForm3();
@@ -247,7 +309,7 @@ void draw() {
   if (frameCount % 20 == 0) {  //Every 20 frames ...
     makeCircle();
     makeBlob();
-    makeBlobBox();
+    makeBlueBox();
     makeBox();
     makeBird();
     makeEarth();
@@ -257,7 +319,6 @@ void draw() {
 
   //Cloud Formations Front
   cloudForm1();
-
 
   // Cloud Mover
   // CF1
