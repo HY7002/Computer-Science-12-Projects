@@ -9,6 +9,9 @@ color red    = color(224, 80, 61);
 color yellow = color(242, 215, 16);
 color white = color(255);
 
+// Gravity Variable
+float grav1 = 0;
+float grav2 = 900;
 
 //assets
 PImage redBird;
@@ -37,7 +40,7 @@ class Button {
   boolean clicked;
   color highlight, normal;
   String text;
-  
+
   // Constructor
   Button(String t, int _x, int _y, int _w, int _h, color norm, color high) {
     x = _x;
@@ -49,18 +52,18 @@ class Button {
     normal = norm;
     clicked = false;
   }
-  
+
   // Behavioural Functions
   void show() {
     drawButton();
     drawLabel();
     checkForClick();
   }
-  
+
   boolean touchingMouse() {
     return mouseX > x-w/2 && mouseX < x+w/2 && mouseY > y-h/2 && mouseY < y+h/2;
   }
-  
+
   void drawButton() {
     rectMode(CENTER);
     if (touchingMouse()) {
@@ -72,8 +75,36 @@ class Button {
     strokeWeight(4);
     rect(x, y, w, h, 50);
   }
+
+  void drawLabel() {
+    textAlign(CENTER, CENTER);
+    if (touchingMouse()) {
+      fill(normal);
+    } else {
+      fill(highlight);
+    }
+    textSize(w/4);
+    text(text, x, y);
+  }
+
+  void checkForClick() {
+    if (mouseReleased && touchingMouse()) {
+      clicked = true;
+    } else {
+      clicked = false;
+    }
+  }
 }
 
+
+void click() {
+  mouseReleased = false;
+  if (mousePressed) wasPressed = true;
+  if (wasPressed && !mousePressed) {
+    mouseReleased = true;
+    wasPressed = false;
+  }
+}
 //===========================================================================================
 
 void setup() {
@@ -86,7 +117,7 @@ void setup() {
 
   // Button Initializer
   myButtons = new Button[2];
-  
+  myButtons[0] = new Button("Gravity", 100, 100, 200, 150, blue, red);
 
   //initialise world
   makeWorld();
@@ -107,7 +138,7 @@ void setup() {
 void makeWorld() {
   Fisica.init(this);
   world = new FWorld();
-  world.setGravity(0, 900);
+  world.setGravity(grav1, grav2);
 }
 
 //===========================================================================================
