@@ -11,6 +11,15 @@ void game() {
   text(rightscore, 3*width/4, 100);
   fill(0);
 
+  //Pause Button
+  fill(255, 255, 255, 0);
+  stroke(255);
+  circle(1450, 50, 70);
+  fill(255);
+  textSize(50);
+  text("I I", 1432, 66);
+
+
   //Soccer Field
   //Center
   noFill();
@@ -71,8 +80,8 @@ void game() {
     ballx = ballx + vx;
     bally = bally + vy;
 
-    vx = vx * 0.97;
-    vy = vy * 0.97;
+    vx = vx * 0.98;
+    vy = vy * 0.98;
   }
 
   // Ball-Paddle Collisions
@@ -113,7 +122,7 @@ void game() {
 
   // Score
   // Right Score
-  if (ballx < 100) {
+  if (ballx < 100 && bally <= height/2) {
     rightscore++;
 
     // Ball Reset
@@ -132,8 +141,8 @@ void game() {
     righty = height/2;
   }
 
-  // Right Score
-  if (ballx > 1400) {
+  // Left Score
+  if (ballx > 1400 && bally >= height/2) {
     leftscore++;
 
     // Ball Reset
@@ -186,4 +195,9 @@ void game() {
 }
 
 void gameClicks() {
+  if (dist(mouseX, mouseY, 1450, 50) < 70) {
+    mode = PAUSE;
+  } else {
+    mode = GAME;
+  }
 }
