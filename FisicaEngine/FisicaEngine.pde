@@ -9,9 +9,7 @@ color red    = color(224, 80, 61);
 color yellow = color(242, 215, 16);
 color white = color(255);
 
-// Gravity Variable
-float grav1 = 0;
-float grav2 = 900;
+color gravButtonStroke = white;
 
 //assets
 PImage redBird;
@@ -21,11 +19,9 @@ PImage earthPic;
 int cloudForm1, cloudForm2, cloudForm3;
 
 // Button Variables
-int gravButton, polyButton;
+boolean gravButton, polyButton;
 boolean mouseReleased;
 boolean wasPressed;
-
-Button[] myButtons;
 
 FPoly blobbox;
 FPoly topPlatform;
@@ -33,69 +29,6 @@ FPoly bottomPlatform;
 
 //fisica
 FWorld world;
-
-// Buttons Handler
-class Button {
-  int x, y, w, h;
-  boolean clicked;
-  color highlight, normal;
-  String text;
-
-  // Constructor
-  Button(String t, int _x, int _y, int _w, int _h, color norm, color high) {
-    x = _x;
-    y = _y;
-    w = _w;
-    h = _h;
-    text = t;
-    highlight = high;
-    normal = norm;
-    clicked = false;
-  }
-
-  // Behavioural Functions
-  void show() {
-    drawButton();
-    drawLabel();
-    checkForClick();
-  }
-
-  boolean touchingMouse() {
-    return mouseX > x-w/2 && mouseX < x+w/2 && mouseY > y-h/2 && mouseY < y+h/2;
-  }
-
-  void drawButton() {
-    rectMode(CENTER);
-    if (touchingMouse()) {
-      fill(highlight);
-    } else {
-      fill(normal);
-    }
-    stroke(0);
-    strokeWeight(4);
-    rect(x, y, w, h, 50);
-  }
-
-  void drawLabel() {
-    textAlign(CENTER, CENTER);
-    if (touchingMouse()) {
-      fill(normal);
-    } else {
-      fill(highlight);
-    }
-    textSize(w/4);
-    text(text, x, y);
-  }
-
-  void checkForClick() {
-    if (mouseReleased && touchingMouse()) {
-      clicked = true;
-    } else {
-      clicked = false;
-    }
-  }
-}
-
 
 void click() {
   mouseReleased = false;
@@ -114,10 +47,6 @@ void setup() {
   //load resources
   redBird = loadImage("red-bird.png");
   earthPic = loadImage("earth.png");
-
-  // Button Initializer
-  myButtons = new Button[2];
-  myButtons[0] = new Button("Gravity", 100, 100, 200, 150, blue, red);
 
   //initialise world
   makeWorld();
@@ -138,7 +67,7 @@ void setup() {
 void makeWorld() {
   Fisica.init(this);
   world = new FWorld();
-  world.setGravity(grav1, grav2);
+  world.setGravity(0, 900);
 }
 
 //===========================================================================================
@@ -329,8 +258,37 @@ void cloudForm3() {
   ellipse(cloudForm3-110, 190, 300, 150);
 }
 
+void gravButton() {
+  gravButton(550, 1227, 300, 150);
+  textMode(CENTER);
+  noFill();
+  stroke(gravButtonStroke);
+  strokeWeight(10);
+  rect(550, 1227, 300, 150);
+  textSize(90);
+  text("Gravity", 565, 1330);
+}
+
+void gravButton (int x, int y, int w, int h) {
+  if (mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+h) {
+    gravButtonStroke = red;
+  } else {
+    gravButtonStroke = white;
+  }
+
+  // mouseX > 550 && mouseX < 850 && mouseY > 1227 && mouseY < 1377
+}
+
+void mouseReleased() {
+  if (mouseX > 550 && mouseX < 850 && mouseY > 1227 && mouseY < 1377) {
+    world.setGravity(0, 10);
+  } else {
+    world.setGravity(0, 900);
+  }
+}
+
 void draw() {
-  println("x: " + mouseX + " y: " + mouseY);
+  //println("x: " + mouseX + " y: " + mouseY);
   background(blue);
 
   //Cloud Formations Back
@@ -350,6 +308,9 @@ void draw() {
 
   //Cloud Formations Front
   cloudForm1();
+
+  //Buttons
+  gravButton();
 
   // Cloud Mover
   // CF1
