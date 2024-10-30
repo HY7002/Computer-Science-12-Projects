@@ -7,6 +7,15 @@ void game() {
   // DRAW GAME
   world.step();
   world.draw();
+  
+  fill(255);
+  textMode(CENTER);
+  textSize(100);
+  text("Score: "+score, 830, 100);
+  
+  //Score Detector
+  fill(255,0,255);
+  rect(1420, 650, 310, 5);
 }
 
 void makeBarrier() {
@@ -68,8 +77,9 @@ void makeHoop() {
   
   // Physical Properties Settings
   hoop.setStatic(true);
+  hoop.setGrabbable(false);
   hoop.setFillColor(white);
-  hoop.setFriction(1);  
+  hoop.setFriction(0.7);  
   
   world.add(hoop);
 }
@@ -94,7 +104,7 @@ void makeGround() {
 // BASKETBALL
 void makeBasketball() {
   basketball = new FCircle(100);
-  basketball.setPosition(random(width), height/2);
+  basketball.setPosition(100, height/2);
 
   // Set Visuals
   basketball.attachImage(basketBall);
