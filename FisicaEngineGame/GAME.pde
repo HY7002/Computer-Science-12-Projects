@@ -1,5 +1,12 @@
 color black = #000000;
 color white = #FFFFFF;
+color green = color(144, 238, 144);
+color yellow = color(255, 255, 0);
+color red = color(255, 0, 0);
+
+color invisDD = 255;
+color invisSD = 0;
+color timerColor = green;
 
 void game() {
   background(139, 79, 57);
@@ -19,9 +26,30 @@ void game() {
   rect(1420, 650, 310, 5);
 
   // Timer
-  fill(144, 238, 144);
+  fill(timerColor);
   textSize(40);
   text("Timer: "+timer, 100, 100);
+  
+  timer--;
+  
+  if (timer == 999) {
+    invisDD = 0;
+    invisSD = 255;
+  } else if (timer == 599){
+    timerColor = yellow;
+  } else if (timer == 399) {
+    timerColor = red;
+  } else if (timer < 99) {
+    timer = 0;
+    timer = timer + 0;
+  }
+  
+  // Timer Cover
+  noStroke();
+  fill(139, 79, 57, invisDD);
+  rect(255, 40, 100, 100); // Double Digits
+  fill(139, 79, 57, invisSD);
+  rect(238, 40, 100, 100); // Single Digit
 }
 
 void makeBarrier() {

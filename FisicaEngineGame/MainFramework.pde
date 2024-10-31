@@ -23,7 +23,7 @@ void setup() {
   size(2000, 1300);
   mode = GAME;
 
-  timer = 1100; 
+  timer = 1100;
 
   // Load Assets
   basketBall = loadImage("basketball.png");
