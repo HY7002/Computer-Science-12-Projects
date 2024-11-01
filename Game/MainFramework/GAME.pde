@@ -106,17 +106,17 @@ void game() {
 
   // Movement
   // Left Paddle
-  if (wkey == true) lefty = lefty - 3;
-  if (skey == true) lefty = lefty + 3;
-  if (dkey == true) leftx = leftx + 3;
-  if (akey == true) leftx = leftx - 3 ;
+  if (wkey == true) lefty = lefty - 5;
+  if (skey == true) lefty = lefty + 5;
+  if (dkey == true) leftx = leftx + 5;
+  if (akey == true) leftx = leftx - 5 ;
 
   // Movement
   // Right Paddle
-  if (upkey == true) righty = righty - 3;
-  if (downkey == true) righty = righty + 3;
-  if (rightkey == true) rightx = rightx + 3;
-  if (leftkey == true) rightx = rightx - 3 ;
+  if (upkey == true) righty = righty - 5;
+  if (downkey == true) righty = righty + 5;
+  if (rightkey == true) rightx = rightx + 5;
+  if (leftkey == true) rightx = rightx - 5;
 
   // ---------- \\
 

@@ -22,7 +22,7 @@ int leftscore, rightscore, timer;
 
 void setup() {
   size(1500, 1000);
-  mode = INTRO;
+  mode = GAMEOVER;
   
   // Left Player Initialization
   leftx = 100;
