@@ -10,7 +10,7 @@ color timerColor = green;
 
 void game() {
   background(139, 79, 57);
-
+  
   // DRAW GAME
   world.step();
   world.draw();

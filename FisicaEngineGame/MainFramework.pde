@@ -1,14 +1,27 @@
 import fisica.*;
 
-//MODE FUNCTIONS
+// MODE FUNCTIONS
 int mode;
 final int GAME = 1;
 
-//Scoring
+// Scoring
 int score, timer;
 
 // Image
 PImage basketBall;
+
+// BBal Contact Handler
+boolean hitHoop(FCircle hoop) {
+  ArrayList<FContact> contactList = basketball.getContacts();
+  int i = 0;
+  while(i < contactList.size()) {
+    FContact myContact = contactList.get(i);
+    if (myContact.contains(hoop))
+      return true;
+    i++;
+  }
+  return false;
+}
 
 // Assets Storage
 FCircle basketball;
@@ -17,7 +30,6 @@ FPoly hoop;
 FPoly barrier;
 FPoly leftBarrier;
 FPoly rightBarrier;
-
 
 void setup() {
   size(2000, 1300);
@@ -42,6 +54,10 @@ void draw() {
     game();
   } else {
     println("Mode Error: "+mode);
+  }
+  
+  if (hitHoop(basketball)) {
+    score++;
   }
 }
 
