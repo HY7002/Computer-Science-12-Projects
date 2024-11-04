@@ -17,12 +17,16 @@ float vx, vy;
 float ballx, bally, balld;
 color contactColor;
 
+// Winner Banner
+color blueWins = 0;
+color redWins = 0;
+
 //Scoring
 int leftscore, rightscore, timer;
 
 void setup() {
   size(1500, 1000);
-  mode = GAMEOVER;
+  mode = INTRO;
   
   // Left Player Initialization
   leftx = 100;

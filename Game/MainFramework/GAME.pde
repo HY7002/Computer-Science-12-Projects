@@ -161,6 +161,21 @@ void game() {
     righty = height/2;
   }
 
+  // Winnner Handler
+    // Right Wins
+    if (rightscore == 3) {
+      mode = GAMEOVER;
+      redWins = 255;
+      blueWins = 0;
+    }
+    
+    // Left Wins
+    if (leftscore == 3) {
+      mode = GAMEOVER;
+      blueWins = 255;
+      redWins = 0;
+    }
+
   // ---------- \\
 
   // Ball Boundry Restrictor
