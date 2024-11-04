@@ -109,7 +109,7 @@ void game() {
   if (wkey == true) lefty = lefty - 5;
   if (skey == true) lefty = lefty + 5;
   if (dkey == true) leftx = leftx + 5;
-  if (akey == true) leftx = leftx - 5 ;
+  if (akey == true) leftx = leftx - 5;
 
   // Movement
   // Right Paddle

@@ -31,7 +31,7 @@ void intro() {
   textSize(100);
   text("DLS Remastered 4K HDR RTX", 150, 300);
   textSize(50);
-  text("Æ Games", 650, 370);
+  text("Æ Sports", 650, 370);
   stroke(255);
   line(104, 320, 1400, 320);
 
