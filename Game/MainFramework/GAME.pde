@@ -65,9 +65,23 @@ void game() {
   fill(135, 206, 235);
   circle(leftx, lefty, leftd);
 
+  // Left Goalie
+  strokeWeight(5);
+  stroke(135, 206, 235);
+  fill(0);
+  circle(100, lefty, leftd);
+
   // Right Player
+  strokeWeight(3);
+  stroke(0);
   fill(255, 127, 127);
   circle(rightx, righty, rightd);
+
+  // Right Goalie
+  strokeWeight(5);
+  stroke(255, 127, 127);
+  fill(0);
+  circle(1400, righty, leftd);
 
   // Ball
   fill(255);
@@ -89,17 +103,33 @@ void game() {
   if (dist(leftx, lefty, ballx, bally) <= 100) {
     vx = (ballx - leftx)/15;
     vy = (bally - lefty)/15;
+
+    contactColor= #87CEEB;
+  }
+
+  // Ball Collision Left Goalie
+  if (dist(100, lefty, ballx, bally) <= 100) {
+    vx = (ballx - 100)/15;
+    vy = (bally - lefty)/15;
     
     contactColor= #87CEEB;
   }
-  
+
   // Ball Collision Right Paddle
   if (dist(rightx, righty, ballx, bally) <= 100) {
     vx = (ballx - rightx)/15;
     vy = (bally - righty)/15;
-    
+
     contactColor= #FF7F7F;
   }
+  
+  // Ball Collision Right Goalie
+  if (dist(1400, righty, ballx, bally) <= 100) {
+    vx = (ballx - 1400)/15;
+    vy = (bally - lefty)/15;
+    
+    contactColor= #FF7F7F;
+  }  
 
   // ---------- \\
 
@@ -161,19 +191,19 @@ void game() {
   }
 
   // Winnner Handler
-    // Right Wins
-    if (rightscore == 3) {
-      mode = GAMEOVER;
-      redWins = 255;
-      blueWins = 0;
-    }
-    
-    // Left Wins
-    if (leftscore == 3) {
-      mode = GAMEOVER;
-      blueWins = 255;
-      redWins = 0;
-    }
+  // Right Wins
+  if (rightscore == 3) {
+    mode = GAMEOVER;
+    redWins = 255;
+    blueWins = 0;
+  }
+
+  // Left Wins
+  if (leftscore == 3) {
+    mode = GAMEOVER;
+    blueWins = 255;
+    redWins = 0;
+  }
 
   // ---------- \\
 
