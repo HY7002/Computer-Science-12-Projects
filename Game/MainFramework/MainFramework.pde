@@ -6,7 +6,7 @@ final int PAUSE = 3;
 final int GAMEOVER = 4;
 
 // Keyboard Variables
-boolean wkey, skey, akey, dkey, upkey, downkey, leftkey, rightkey;
+boolean wkey, skey, akey, dkey, rkey, upkey, downkey, leftkey, rightkey;
 
 
 //Player Variables
@@ -48,7 +48,7 @@ void setup() {
   vy = 0;
   
   // Keyboard Initialization
-  wkey = skey = akey = dkey = upkey = downkey = leftkey = rightkey = false;
+  wkey = skey = akey = dkey = rkey = upkey = downkey = leftkey = rightkey = false;
   
   timer = 50;
 }

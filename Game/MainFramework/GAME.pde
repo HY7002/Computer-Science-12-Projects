@@ -94,7 +94,6 @@ void game() {
   }
   
   // Ball Collision Right Paddle
-  circle(ballx, bally, balld);
   if (dist(rightx, righty, ballx, bally) <= 100) {
     vx = (ballx - rightx)/15;
     vy = (bally - righty)/15;
@@ -122,7 +121,7 @@ void game() {
 
   // Score
   // Right Score
-  if (ballx < 100 && bally <= height/2) {
+  if (ballx <= 100 && bally <= height/2) {
     rightscore++;
 
     // Ball Reset
@@ -142,7 +141,7 @@ void game() {
   }
 
   // Left Score
-  if (ballx > 1400 && bally >= height/2) {
+  if (ballx >= 1400 && bally >= height/2) {
     leftscore++;
 
     // Ball Reset

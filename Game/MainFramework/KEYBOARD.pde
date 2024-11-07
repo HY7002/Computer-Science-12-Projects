@@ -5,6 +5,9 @@ void keyPressed() {
   if(key == 'd' || key == 'D') dkey = true;
   if(key == 'a' || key == 'A') akey = true;
   
+  // Reset Key
+  if(key == 'r' || key == 'R') rkey = true;
+  
   // Right Player
   if(keyCode == UP) upkey = true;
   if(keyCode == DOWN) downkey = true;
@@ -18,6 +21,9 @@ void keyReleased() {
   if(key == 's' || key == 'S') skey = false;
   if(key == 'd' || key == 'D') dkey = false;
   if(key == 'a' || key == 'A') akey = false;
+  
+  //Reset Key
+  if(key == 'r' || key == 'R') rkey = false;
   
   // Right Player
   if(keyCode == UP) upkey = false;
