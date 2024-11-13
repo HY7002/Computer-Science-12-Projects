@@ -50,7 +50,9 @@ void plr1game() {
     basketball1.setVelocity(0, 0);
   }
   
-  collisionDetector2.setPosition(5000, 5000);
+  collisionDetector2.setPosition(1000, 500);
+  
+  basketball2.setPosition(0, -100);
 }
 
 void makeBarrier1() {

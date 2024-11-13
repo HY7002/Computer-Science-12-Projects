@@ -49,13 +49,18 @@ void plr2game() {
   
   // Basketball Position Reseter
   if (rkey == true) {
-    basketball2.setPosition(100, height/2);
+    basketball2.setPosition(0, height/2);
     basketball2.setVelocity(0,0);
   } 
   
   collisionDetector1.setPosition(5000, 5000);
-  collisionDetector2.setPosition(0, 0);
+  collisionDetector2.setPosition(0,0);
+  
+  basketball2.setPosition(100, height/2);  
+  
+  basketball1.setPosition(0, -100);
 }
+
 
 void makeBarrier2() {
   barrier = new FPoly();
@@ -139,6 +144,8 @@ void makeCollisionDetector2() {
   collisionDetector2.setStatic(true);
   
   world.add(collisionDetector2);
+  
+  collisionDetector2.setPosition(0,0);
 }
 
 void makeGround2() {
