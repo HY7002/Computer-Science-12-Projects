@@ -1,17 +1,7 @@
-color black = #000000;
-color white = #FFFFFF;
-color green = color(144, 238, 144);
-color yellow = color(255, 255, 0);
-color red = color(255, 0, 0);
-
-color invisDD = 255;
-color invisSD = 0;
-color timerColor = green;
-
 void plr1game() {
-  
+
   background(139, 79, 57);
-  
+
   // DRAW GAME
   world.step();
   world.draw();
@@ -23,47 +13,44 @@ void plr1game() {
   text("Score: "+p1Score, 835, 105);
   fill(0, 0, 255);
   text("Score: "+p1Score, 830, 100);
+  
+  if (timer1 == 0) {
+    mode = LOBBY;
+  }
 
   // Timer
   fill(timerColor);
   textSize(40);
-  text("Timer: "+timer, 100, 100);
-  
-  timer--;
-  
-  if (timer == 999) {
+  text("Timer: "+timer1, 100, 100);
+
+  timer1--;
+
+  if (timer1 == 999) {
     invisDD = 0;
     invisSD = 255;
-  } else if (timer == 599){
+  } else if (timer1 == 599) {
     timerColor = yellow;
-  } else if (timer == 399) {
+  } else if (timer1 == 399) {
     timerColor = red;
-  } else if (timer < 99) {
-    timer = 0;
-    timer = timer + 0;
+  } else if (timer1 < 99) {
+    timer1 = 0;
+    timer1 = timer1 + 0;
   }
-  
+
   // Timer Cover
   noStroke();
   fill(139, 79, 57, invisDD);
   rect(255, 40, 100, 100); // Double Digits
   fill(139, 79, 57, invisSD);
   rect(238, 40, 100, 100); // Single Digit
-  
+
   // Basketball Position Reseter
   if (rkey == true) {
     basketball1.setPosition(100, height/2);
-    basketball1.setVelocity(0,0);
+    basketball1.setVelocity(0, 0);
   }
   
-  
-  if (mode == PLR1GAME) {
-    basketball2.setGrabbable(false);
-    basketball2.setStatic(true);
-    basketball2.setPosition(3000, 3000);
-    
-    collisionDetector2.setPosition(4000, 4000);
-  } 
+  collisionDetector2.setPosition(5000, 5000);
 }
 
 void makeBarrier1() {
@@ -135,20 +122,19 @@ void makeHoop1() {
 
 void makeCollisionDetector1() {
   collisionDetector1 = new FPoly();
-  
+
   collisionDetector1 = new FPoly();
   collisionDetector1.vertex(width/2+420, height/2-10);
-  collisionDetector1.vertex(width/2+730, height/2-10); 
+  collisionDetector1.vertex(width/2+730, height/2-10);
   collisionDetector1.vertex(width/2+730, height/2);
   collisionDetector1.vertex(width/2+420, height/2);
-  
-  
-  collisionDetector1.setFillColor(red);
+
+
+  collisionDetector1.setFillColor(blue);
   collisionDetector1.setGrabbable(false);
   collisionDetector1.setStatic(true);
-  
-  world.add(collisionDetector1);
 
+  world.add(collisionDetector1);
 }
 
 void makeGround1() {

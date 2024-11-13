@@ -1,15 +1,33 @@
 import fisica.*;
 
+// Timer
+color invisDD = 255;
+color invisSD = 0;
+
+color invisDD2 = 255;
+color invisSD2 = 0;
+
+color timerColor;
+
+// Colors
+color black = #000000;
+color white = #FFFFFF;
+color green = color(144, 238, 144);
+color yellow = color(255, 255, 0);
+color red = color(255, 0, 0);
+color blue = color(0, 0, 255);
+
 // MODE FUNCTIONS
 int mode;
 final int PLR1GAME = 1;
-final int PLR2GAME = 2;
+final int LOBBY = 2;
+final int PLR2GAME = 3;
 
 // Key Press
 boolean rkey;
 
 // Scoring
-int p1Score, p2Score, timer;
+int p1Score, p2Score, timer1, timer2;
 
 // Image
 PImage basketBall;
@@ -54,9 +72,11 @@ FPoly collisionDetector2;
 
 void setup() {
   size(2000, 1300);
-  mode = PLR2GAME;
-
-  timer = 1100;
+  mode = PLR1GAME;
+  
+  timerColor = green;
+  timer1 = 1100;
+  timer2 = 1100;
 
   // Load Assets
   basketBall = loadImage("basketball.png");
@@ -87,6 +107,8 @@ void draw() {
     plr1game();
   }  else if (mode == PLR2GAME) {
     plr2game();
+  } else if (mode == LOBBY) {
+    lobby();
   } else {
     println("Mode Error: "+mode);
   }

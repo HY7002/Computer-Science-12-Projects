@@ -1,4 +1,5 @@
 void plr2game() {
+  
   background(139, 79, 57);
   
   // DRAW GAME
@@ -23,42 +24,37 @@ void plr2game() {
   // Timer
   fill(timerColor);
   textSize(40);
-  text("Timer: "+timer, 100, 100);
+  text("Timer: "+timer2, 100, 100); 
   
-  timer--;
+  timer2--;
   
-  if (timer == 999) {
-    invisDD = 0;
-    invisSD = 255;
-  } else if (timer == 599){
+  if (timer2 == 999) {
+    invisDD2 = 0;
+    invisSD2 = 255;
+  } else if (timer2 == 599){
     timerColor = yellow;
-  } else if (timer == 399) {
+  } else if (timer2 == 399) {
     timerColor = red;
-  } else if (timer < 99) {
-    timer = 0;
-    timer = timer + 0;
+  } else if (timer2 < 99) {
+    timer2 = 0;
+    timer2 = timer2 + 0;
   }
   
   // Timer Cover
   noStroke();
-  fill(139, 79, 57, invisDD);
+  fill(139, 79, 57, invisDD2);
   rect(255, 40, 100, 100); // Double Digits
-  fill(139, 79, 57, invisSD);
+  fill(139, 79, 57, invisSD2);
   rect(238, 40, 100, 100); // Single Digit
   
   // Basketball Position Reseter
   if (rkey == true) {
     basketball2.setPosition(100, height/2);
     basketball2.setVelocity(0,0);
-  }
+  } 
   
-  if (mode == PLR2GAME) {
-    basketball1.setGrabbable(false);
-    basketball1.setStatic(true);
-    basketball1.setPosition(3000, 3000);
-    
-    collisionDetector1.setPosition(4000, 4000);
-  }  
+  collisionDetector1.setPosition(5000, 5000);
+  collisionDetector2.setPosition(0, 0);
 }
 
 void makeBarrier2() {
@@ -143,7 +139,6 @@ void makeCollisionDetector2() {
   collisionDetector2.setStatic(true);
   
   world.add(collisionDetector2);
-
 }
 
 void makeGround2() {
