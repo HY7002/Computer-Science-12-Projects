@@ -74,7 +74,7 @@ FPoly collisionDetector2;
 
 void setup() {
   size(2000, 1300);
-  mode = END;
+  mode = INTRO;
 
   timer1 = 1100;
   timer2 = 1100;
