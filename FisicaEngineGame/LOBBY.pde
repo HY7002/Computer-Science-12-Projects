@@ -22,10 +22,14 @@ void lobby() {
   
   // PLR1 Final Score
   textSize(50);
-  fill(255);
-  text("Player 1 Final Score: "+p1Score, 752, 1002); 
+  fill(255, 255, 255, 127);
+  text("Player 1 Final Score: "+p1Score, 752, 1003); 
   fill(0, 0, 255);
   text("Player 1 Final Score: "+p1Score, 750, 1000); 
+  
+  // Player 2 Ball Setu
+  basketball2.setPosition(100, height/2);
+  basketball2.setVelocity(0, 0);
 
 }
 

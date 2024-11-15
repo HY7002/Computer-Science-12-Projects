@@ -19,12 +19,14 @@ color blue = color(0, 0, 255);
 
 // MODE FUNCTIONS
 int mode;
-final int PLR1GAME = 1;
-final int LOBBY = 2;
-final int PLR2GAME = 3;
+final int INTRO = 1;
+final int PLR1GAME = 2;
+final int LOBBY = 3;
+final int PLR2GAME = 4;
+final int END = 5;
 
 // Key Press
-boolean rkey;
+boolean rkey, spacekey;
 
 // Scoring
 int p1Score, p2Score, timer1, timer2;
@@ -36,7 +38,7 @@ PImage basketBall;
 boolean hitCollisionDetector1(FCircle basketball1) {
   ArrayList<FContact> contactList = basketball1.getContacts();
   int i = 0;
-  while(i < contactList.size()) {
+  while (i < contactList.size()) {
     FContact myContact = contactList.get(i);
     if (myContact.contains(collisionDetector1))
       return true;
@@ -50,7 +52,7 @@ boolean hitCollisionDetector1(FCircle basketball1) {
 boolean hitCollisionDetector2(FCircle basketball2) {
   ArrayList<FContact> contactList = basketball2.getContacts();
   int i = 0;
-  while(i < contactList.size()) {
+  while (i < contactList.size()) {
     FContact myContact = contactList.get(i);
     if (myContact.contains(collisionDetector2))
       return true;
@@ -72,9 +74,8 @@ FPoly collisionDetector2;
 
 void setup() {
   size(2000, 1300);
-  mode = PLR1GAME;
-  
-  timerColor = green;
+  mode = END;
+
   timer1 = 1100;
   timer2 = 1100;
 
@@ -82,7 +83,7 @@ void setup() {
   basketBall = loadImage("basketball.png");
 
   makeWorld();
-  
+
   // Player 1
   makeGround1();
   makeBasketball1();
@@ -91,7 +92,7 @@ void setup() {
   makeLeftBarrier1();
   makeRightBarrier1();
   makeCollisionDetector1();
-  
+
   // Player 2
   makeGround2();
   makeBasketball2();
@@ -99,33 +100,37 @@ void setup() {
   makeBarrier2();
   makeLeftBarrier2();
   makeRightBarrier2();
-  makeCollisionDetector2();  
+  makeCollisionDetector2();
 }
 
 void draw() {
   if (mode == PLR1GAME) {
     plr1game();
-  }  else if (mode == PLR2GAME) {
+  } else if (mode == PLR2GAME) {
     plr2game();
   } else if (mode == LOBBY) {
     lobby();
+  } else if (mode == END) {
+    end();
+  } else if (mode == INTRO) {
+    intro();
   } else {
     println("Mode Error: "+mode);
   }
-  
+
   if (hitCollisionDetector1(basketball1)) {
     p1Score++;
-    
+
     basketball1.setPosition(100, height/2);
-    basketball1.setVelocity(0,0);    
+    basketball1.setVelocity(0, 0);
   }
-  
+
   if (hitCollisionDetector2(basketball2)) {
     p2Score++;
-    
+
     basketball2.setPosition(100, height/2);
-    basketball2.setVelocity(0,0);    
-  }  
+    basketball2.setVelocity(0, 0);
+  }
 }
 
 //WORLD/FISICA INITIALIZER ===========================================================================================

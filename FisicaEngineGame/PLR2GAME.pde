@@ -1,7 +1,7 @@
 void plr2game() {
-  
+
   background(139, 79, 57);
-  
+
   // DRAW GAME
   world.step();
   world.draw();
@@ -13,7 +13,7 @@ void plr2game() {
   text("Score: "+p2Score, 835, 105);
   fill(255, 0, 0);
   text("Score: "+p2Score, 830, 100);
-  
+
   // Player 1 Score Display
   textSize(50);
   fill(127.5);
@@ -24,14 +24,17 @@ void plr2game() {
   // Timer
   fill(timerColor);
   textSize(40);
-  text("Timer: "+timer2, 100, 100); 
-  
+  text("Timer: "+timer2, 100, 100);
+
   timer2--;
   
+  timerColor = green;
+  invisDD2 = 255;
+
   if (timer2 == 999) {
     invisDD2 = 0;
     invisSD2 = 255;
-  } else if (timer2 == 599){
+  } else if (timer2 == 599) {
     timerColor = yellow;
   } else if (timer2 == 399) {
     timerColor = red;
@@ -39,25 +42,27 @@ void plr2game() {
     timer2 = 0;
     timer2 = timer2 + 0;
   }
-  
+
+  if (timer2 == 0) {
+    mode = END;
+  }
+
   // Timer Cover
   noStroke();
   fill(139, 79, 57, invisDD2);
   rect(255, 40, 100, 100); // Double Digits
   fill(139, 79, 57, invisSD2);
   rect(238, 40, 100, 100); // Single Digit
-  
+
   // Basketball Position Reseter
   if (rkey == true) {
-    basketball2.setPosition(0, height/2);
-    basketball2.setVelocity(0,0);
-  } 
-  
-  collisionDetector1.setPosition(5000, 5000);
-  collisionDetector2.setPosition(0,0);
-  
-  basketball2.setPosition(100, height/2);  
-  
+    basketball2.setPosition(100, height/2);
+    basketball2.setVelocity(0, 0);
+  }
+
+  collisionDetector1.setPosition(-1000, -1000);
+  collisionDetector2.setPosition(0, 0);
+
   basketball1.setPosition(0, -100);
 }
 
@@ -131,21 +136,21 @@ void makeHoop2() {
 
 void makeCollisionDetector2() {
   collisionDetector2 = new FPoly();
-  
+
   collisionDetector2 = new FPoly();
   collisionDetector2.vertex(width/2+420, height/2-10);
-  collisionDetector2.vertex(width/2+730, height/2-10); 
+  collisionDetector2.vertex(width/2+730, height/2-10);
   collisionDetector2.vertex(width/2+730, height/2);
   collisionDetector2.vertex(width/2+420, height/2);
-  
-  
+
+
   collisionDetector2.setFillColor(red);
   collisionDetector2.setGrabbable(false);
   collisionDetector2.setStatic(true);
-  
+
   world.add(collisionDetector2);
-  
-  collisionDetector2.setPosition(0,0);
+
+  collisionDetector2.setPosition(0, 0);
 }
 
 void makeGround2() {

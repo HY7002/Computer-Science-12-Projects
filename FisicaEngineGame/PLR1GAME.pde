@@ -23,6 +23,7 @@ void plr1game() {
   textSize(40);
   text("Timer: "+timer1, 100, 100);
 
+  timerColor = green;
   timer1--;
 
   if (timer1 == 999) {
