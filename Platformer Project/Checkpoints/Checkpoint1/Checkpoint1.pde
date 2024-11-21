@@ -24,7 +24,7 @@ color treeTrunk = #ff7300;
 color treeLeaves = #00ff6e;
 
 
-PImage map, ice, stone, grass, dirt;
+PImage map, ice, stone, grass, dirt, treetrunk;
 int gridSize = 32;
 float scale = 1.5;
 boolean wkey, skey, akey, dkey;
@@ -40,6 +40,7 @@ void setup() {
   grass = loadImage("dirt_n.png");
   dirt = loadImage("dirt_center.png");
   ice = loadImage("blueBlock.png");
+  treetrunk = loadImage("tree_trunk.png");
   
   loadWorld(map);
   loadPlayer();
@@ -87,6 +88,14 @@ void loadWorld(PImage img) {
         b.setName("ice");
         b.setFriction(0);
         world.add(b);  
+      }
+      
+    // TREE TRUNK
+      if (c == treeTrunk) {
+        b.attachImage(treetrunk);
+        b.setName("treeTrunk");
+        b.setFriction(0);
+        world.add(b);
       }
     }
   }
