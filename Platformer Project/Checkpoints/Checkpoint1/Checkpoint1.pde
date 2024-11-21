@@ -10,11 +10,19 @@ color blue = #0000FF;
 color orange = #F0A000;
 color brown = #996633;
 
-// MAP COLOR
+   
+//MAP COLOR\\
+
+// FLOOR COLOR
 color stoneFloor = #969696;
 color grassFloor = #34a834;
 color dirtFloor = #9e6a42;
 color iceFloor = #00ffff;
+
+//TREE
+color treeTrunk = #ff7300;
+color treeLeaves = #00ff6e;
+
 
 PImage map, ice, stone, grass, dirt;
 int gridSize = 32;
