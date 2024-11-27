@@ -18,13 +18,14 @@ color stoneFloor = #969696;
 color grassFloor = #34a834;
 color dirtFloor = #9e6a42;
 color iceFloor = #00ffff;
+color spikeFloor = #ff1493;
 
 //TREE
 color treeTrunk = #ff7300;
 color treeLeaves = #00ff6e;
 
 
-PImage map, ice, stone, grass, dirt, treetrunk;
+PImage map, ice, stone, grass, dirt, spike;
 int gridSize = 32;
 float scale = 1.5;
 boolean wkey, skey, akey, dkey;
@@ -40,7 +41,7 @@ void setup() {
   grass = loadImage("dirt_n.png");
   dirt = loadImage("dirt_center.png");
   ice = loadImage("blueBlock.png");
-  treetrunk = loadImage("tree_trunk.png");
+  spike = loadImage("spike.png");
   
   loadWorld(map);
   loadPlayer();
@@ -89,14 +90,14 @@ void loadWorld(PImage img) {
         b.setFriction(0);
         world.add(b);  
       }
-      
-    // TREE TRUNK
-      if (c == treeTrunk) {
-        b.attachImage(treetrunk);
-        b.setName("treeTrunk");
+   
+   // SPIKE FLOOR
+     if (c == spikeFloor) {
+        b.attachImage(spike);
+        b.setName("spike");
         b.setFriction(0);
-        world.add(b);
-      }
+        world.add(b);      
+     }
     }
   }
 }
