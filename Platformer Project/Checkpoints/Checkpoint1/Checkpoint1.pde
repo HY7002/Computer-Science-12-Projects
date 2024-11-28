@@ -19,6 +19,7 @@ color grassFloor = #34a834;
 color dirtFloor = #9e6a42;
 color iceFloor = #00ffff;
 color spikeFloor = #ff1493;
+color bridge = #800080;
 
 //TREE
 color treeTrunk = #ff7300;
@@ -28,7 +29,7 @@ color treeLeaves = #00ff6e;
 PImage map, ice, stone, grass, dirt, spike;
 int gridSize = 32;
 float scale = 1.5;
-boolean wkey, skey, akey, dkey;
+boolean wkey, akey, dkey;
 FPlayer player;
 
 void setup() {
@@ -95,7 +96,7 @@ void loadWorld(PImage img) {
      if (c == spikeFloor) {
         b.attachImage(spike);
         b.setName("spike");
-        b.setFriction(0);
+        b.setFriction(4);
         world.add(b);      
      }
     }

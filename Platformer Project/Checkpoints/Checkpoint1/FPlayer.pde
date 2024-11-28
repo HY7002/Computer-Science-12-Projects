@@ -1,14 +1,24 @@
-class FPlayer extends FBox {
+class FPlayer extends FGameObject {
+  
   FPlayer() {
-    super(gridSize, gridSize);
+    super();
     setPosition(300, 0);
     setFillColor(blue);
+    setName("player");
   }
 
   void act() {
-    if (dkey) setVelocity(150, getVelocityY());
-    if (akey) setVelocity(-150, getVelocityY());
-    
-    if (wkey) setVelocity(getVelocityX(), 5000);
+    handleInput();
+    if (isTouching("spike")) {
+      setPosition(0,0);
+    }
+  }
+  
+  void handleInput() {
+    float vx = getVelocityX();
+    float vy = getVelocityY();
+    if (dkey) setVelocity(150, vy);
+    if (akey) setVelocity(-150, vy);
+    if (wkey) setVelocity(vx, -250);
   }
 }
