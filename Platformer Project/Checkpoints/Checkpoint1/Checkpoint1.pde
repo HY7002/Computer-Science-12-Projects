@@ -10,7 +10,7 @@ color blue = #0000FF;
 color orange = #F0A000;
 color brown = #996633;
 
-   
+
 //MAP COLOR\\
 
 // FLOOR COLOR
@@ -19,23 +19,20 @@ color grassFloor = #34a834;
 color dirtFloor = #9e6a42;
 color iceFloor = #00ffff;
 color spikeFloor = #ff1493;
-color bridge = #800080;
-
-//TREE
-color treeTrunk = #ff7300;
-color treeLeaves = #00ff6e;
+color bridgeFloor = #800080;
 
 
-PImage map, ice, stone, grass, dirt, spike;
+PImage map, ice, stone, grass, dirt, spike, bridge;
 int gridSize = 32;
 float scale = 1.5;
 boolean wkey, akey, dkey;
 FPlayer player;
+ArrayList<FGameObject> terrain;
 
 void setup() {
   size(600, 600);
   Fisica.init(this);
-  
+
   // Asset Loader
   map = loadImage("mapTEST.png");
   stone = loadImage("brick.png");
@@ -43,7 +40,9 @@ void setup() {
   dirt = loadImage("dirt_center.png");
   ice = loadImage("blueBlock.png");
   spike = loadImage("spike.png");
-  
+  bridge = loadImage("bridge_center.png");
+
+  terrain = new ArrayList<FGameObject>();
   loadWorld(map);
   loadPlayer();
 }
@@ -59,59 +58,74 @@ void loadWorld(PImage img) {
       b.setPosition(x*gridSize, y*gridSize);
       b.setStatic(true);
       b.setGrabbable(false);
-      
-     // STONE FLOOR
+
+      // STONE FLOOR
       if (c == stoneFloor || c == black) {
         b.attachImage(stone);
         b.setName("stone");
         b.setFriction(4);
         world.add(b);
-      } 
-      
-     // GRASS FLOOR 
+      }
+
+      // GRASS FLOOR
       if (c == grassFloor) {
         b.attachImage(grass);
         b.setName("grass");
         b.setFriction(2);
         world.add(b);
       }
-      
-    // DIRT FLOOR
+
+      // DIRT FLOOR
       if (c == dirtFloor) {
         b.attachImage(dirt);
         b.setName("dirt");
         b.setFriction(2);
-        world.add(b);    
-    }
-    
-    // ICE FLOOR
+        world.add(b);
+      }
+
+      // ICE FLOOR
       if (c == iceFloor) {
         b.attachImage(ice);
         b.setName("ice");
         b.setFriction(0);
-        world.add(b);  
+        world.add(b);
       }
-   
-   // SPIKE FLOOR
-     if (c == spikeFloor) {
+
+      // SPIKE FLOOR
+      if (c == spikeFloor) {
         b.attachImage(spike);
         b.setName("spike");
         b.setFriction(4);
-        world.add(b);      
-     }
+        world.add(b);
+      }
+
+      // BRIDGE FLOOR
+      if (c == bridgeFloor) {
+        FBridge br = new FBridge(x*gridSize, y*gridSize);
+        terrain.add(br);
+        world.add(br);
+      }
     }
   }
 }
 
 void loadPlayer() {
- player = new FPlayer(); 
- world.add(player);
+  player = new FPlayer();
+  world.add(player);
 }
 
 void draw() {
   background(135, 206, 235);
   drawWorld();
+  actWorld();
+}
+
+void actWorld() {
   player.act();
+  for(int i = 0; i < terrain.size(); i++) {
+    FGameObject t = terrain.get(i);
+    t.act();
+  }
 }
 
 void drawWorld() {

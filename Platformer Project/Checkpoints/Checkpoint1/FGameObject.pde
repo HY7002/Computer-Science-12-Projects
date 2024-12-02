@@ -11,11 +11,10 @@ class FGameObject extends FBox {
     ArrayList<FContact> contacts = getContacts();
     for (int i = 0; i < contacts.size(); i++) {
       FContact fc = contacts.get(i);
-      if (fc.contains(n)) {
-        setPosition(310,1);
-        setVelocity(0,0);
-      }
-    }
+      if (fc.contains(n)) {        
+        return true;
+      }      
+    }    
     return false;
   }  
 }
