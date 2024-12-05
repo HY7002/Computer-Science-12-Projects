@@ -5,12 +5,14 @@ class FPlayer extends FGameObject {
     setPosition(300, 0);
     setFillColor(blue);
     setName("player");
+    setRotatable(false);
   }
 
   void act() {
     handleInput();
     if (isTouching("spike")) {
-      setPosition(0,0);
+      setPosition(310,-10);
+      setVelocity(0,0);
     }
   }
   

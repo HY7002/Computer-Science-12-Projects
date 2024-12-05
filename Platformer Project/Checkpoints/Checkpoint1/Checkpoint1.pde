@@ -20,14 +20,20 @@ color dirtFloor = #9e6a42;
 color iceFloor = #00ffff;
 color spikeFloor = #ff1493;
 color bridgeFloor = #800080;
+color goombaYellow = #ffff00;
 
 
 PImage map, ice, stone, grass, dirt, spike, bridge;
+
+PImage[] goomba;
+
 int gridSize = 32;
 float scale = 1.5;
 boolean wkey, akey, dkey;
+
 FPlayer player;
 ArrayList<FGameObject> terrain;
+ArrayList<FGameObject> enemies;
 
 void setup() {
   size(600, 600);
@@ -45,6 +51,13 @@ void setup() {
   terrain = new ArrayList<FGameObject>();
   loadWorld(map);
   loadPlayer();
+  
+  // GOOMBA IMAGE LOADER
+  goomba = new PImage[2];
+  goomba[0] = loadImage("goomba0.png");
+  goomba[0].resize(gridSize, gridSize);
+  goomba[1] = loadImage("goomba1.png");
+  goomba[1].resize(gridSize, gridSize);  
 }
 
 void loadWorld(PImage img) {
@@ -105,6 +118,13 @@ void loadWorld(PImage img) {
         terrain.add(br);
         world.add(br);
       }
+
+      // GOOMBAS
+      if (c == goombaYellow) {
+        FGoomba gmb = new FGoomba(x*gridSize, y*gridSize);
+        enemies.add(gmb);
+        world.add(gmb);
+      }
     }
   }
 }
@@ -122,9 +142,13 @@ void draw() {
 
 void actWorld() {
   player.act();
-  for(int i = 0; i < terrain.size(); i++) {
+  for (int i = 0; i < terrain.size(); i++) {
     FGameObject t = terrain.get(i);
     t.act();
+  }
+  for (int i = 0; i < enemies.size(); i++) {
+    FGameObject e = enemies.get(i);
+    e.act();
   }
 }
 
