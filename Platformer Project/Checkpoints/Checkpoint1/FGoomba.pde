@@ -1,12 +1,27 @@
 class FGoomba extends FGameObject {
   int direction = L;
   int speed = 50;
-  int frtame = 0;
+  int frame = 0;
   
   FGoomba(float x, float y) {
     super();
     setPosition(x, y);
     setName("goomba");
     setRotatable(false);
+  }
+  
+  void act() {
+    animate();
+    collide();
+    move();
+  }
+  
+  void animate() {
+    if (frame >= goomba.length) frame = 0;
+    if (frameCount % 5 == 0) {
+      if (direction == R) attachImage(goomba[frame]);
+      if (direction == L) attachImage(reverseImage(goomba[frame]));
+      frame++;
+    }
   }
 }
