@@ -21,6 +21,7 @@ color iceFloor = #00ffff;
 color spikeFloor = #ff1493;
 color bridgeFloor = #800080;
 color goombaYellow = #ffff00;
+color wallRed = #ff0000;
 
 
 PImage map, ice, stone, grass, dirt, spike, bridge;
@@ -51,13 +52,13 @@ void setup() {
   terrain = new ArrayList<FGameObject>();
   loadWorld(map);
   loadPlayer();
-  
+
   // GOOMBA IMAGE LOADER
   goomba = new PImage[2];
   goomba[0] = loadImage("goomba0.png");
   goomba[0].resize(gridSize, gridSize);
   goomba[1] = loadImage("goomba1.png");
-  goomba[1].resize(gridSize, gridSize);  
+  goomba[1].resize(gridSize, gridSize);
 }
 
 void loadWorld(PImage img) {
@@ -124,6 +125,13 @@ void loadWorld(PImage img) {
         FGoomba gmb = new FGoomba(x*gridSize, y*gridSize);
         enemies.add(gmb);
         world.add(gmb);
+      }
+
+      // Wall
+      if (c == wallRed) {
+        b.attachImage(stone);
+        b.setName("wall");
+        world.add(b);
       }
     }
   }
