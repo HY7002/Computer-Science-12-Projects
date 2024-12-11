@@ -20,7 +20,7 @@ color dirtFloor = #9e6a42;
 color iceFloor = #00ffff;
 color spikeFloor = #ff1493;
 color bridgeFloor = #800080;
-color goombaYellow = #ffff00;
+color goombaYellow = #ffa200;
 color wallRed = #ff0000;
 
 
@@ -50,6 +50,7 @@ void setup() {
   bridge = loadImage("bridge_center.png");
 
   terrain = new ArrayList<FGameObject>();
+  enemies = new ArrayList<FGameObject>();
   loadWorld(map);
   loadPlayer();
 
@@ -59,6 +60,25 @@ void setup() {
   goomba[0].resize(gridSize, gridSize);
   goomba[1] = loadImage("goomba1.png");
   goomba[1].resize(gridSize, gridSize);
+
+
+  PImage pic = loadImage("goomba0.png");
+  reverseImage(pic).save("goomba1.png");
+}
+
+PImage reverseImage( PImage image ) {
+  PImage reverse;
+  reverse = createImage(image.width, image.height, ARGB );
+
+  for ( int i=0; i < image.width; i++ ) {
+    for (int j=0; j < image.height; j++) {
+      int xPixel, yPixel;
+      xPixel = image.width - 1 - i;
+      yPixel = j;
+      reverse.pixels[yPixel*image.width+xPixel]=image.pixels[j*image.width+i] ;
+    }
+  }
+  return reverse;
 }
 
 void loadWorld(PImage img) {
