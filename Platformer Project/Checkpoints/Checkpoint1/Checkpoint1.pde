@@ -26,6 +26,13 @@ color wallRed = #ff0000;
 
 PImage map, ice, stone, grass, dirt, spike, bridge;
 
+// Main Character Animations
+PImage[] idle;
+PImage[] jump;
+PImage[] run;
+PImage[] action;
+
+// Goomba Animation
 PImage[] goomba;
 
 int gridSize = 32;
@@ -64,21 +71,21 @@ void setup() {
 
   PImage pic = loadImage("goomba0.png");
   reverseImage(pic).save("goomba1.png");
-}
-
-PImage reverseImage( PImage image ) {
-  PImage reverse;
-  reverse = createImage(image.width, image.height, ARGB );
-
-  for ( int i=0; i < image.width; i++ ) {
-    for (int j=0; j < image.height; j++) {
-      int xPixel, yPixel;
-      xPixel = image.width - 1 - i;
-      yPixel = j;
-      reverse.pixels[yPixel*image.width+xPixel]=image.pixels[j*image.width+i] ;
-    }
-  }
-  return reverse;
+  
+  // Load Character Animations
+  idle = new PImage[2];
+  idle[0] = loadImage("idle0.png");
+  idle[1] = loadImage("idle1.png");
+  
+  jump = new PImage[1];
+  jump[0] = loadImage("jump0.png");
+  
+  run = new PImage[3];
+  run[0] = loadImage("runright0.png");
+  run[1] = loadImage("runright1.png");
+  run[2] = loadImage("runright2.png");
+  
+  action = idle;
 }
 
 void loadWorld(PImage img) {
