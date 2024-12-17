@@ -22,6 +22,7 @@ color spikeFloor = #ff1493;
 color bridgeFloor = #800080;
 color goombaYellow = #ffa200;
 color wallRed = #ff0000;
+color thwompBlue = #0066ff;
 
 
 PImage map, ice, stone, grass, dirt, spike, bridge;
@@ -34,6 +35,10 @@ PImage[] action;
 
 // Goomba Animation
 PImage[] goomba;
+
+// Thwomp Animation
+PImage[] sleep;
+PImage[] wake;
 
 int gridSize = 32;
 float scale = 1.5;
@@ -48,7 +53,7 @@ void setup() {
   Fisica.init(this);
 
   // Asset Loader
-  map = loadImage("mapTEST.png");
+  map = loadImage("map.png");
   stone = loadImage("brick.png");
   grass = loadImage("dirt_n.png");
   dirt = loadImage("dirt_center.png");
@@ -67,10 +72,18 @@ void setup() {
   goomba[0].resize(gridSize, gridSize);
   goomba[1] = loadImage("goomba1.png");
   goomba[1].resize(gridSize, gridSize);
-
-
+  
   PImage pic = loadImage("goomba0.png");
-  reverseImage(pic).save("goomba1.png");
+  reverseImage(pic).save("goomba1.png");  
+  
+ // THWOMP IMAGE LOADER
+ sleep = new PImage[1];
+ sleep[0] = loadImage("thwomp0.png");
+ sleep[0].resize(gridSize, gridSize);
+ 
+ wake = new PImage[1];
+ wake[0] = loadImage("thwomp1.png");
+ wake[0].resize(gridSize, gridSize);
   
   // Load Character Animations
   idle = new PImage[2];
@@ -160,6 +173,13 @@ void loadWorld(PImage img) {
         b.setName("wall");
         world.add(b);
       }
+      
+     // THWOMPS
+     if (c == thwompBlue) {
+       FThwomp twp = new FThwomp(x*gridSize, y*gridSize);
+       enemies.add(twp);
+       world.add(twp);
+     }
     }
   }
 }
