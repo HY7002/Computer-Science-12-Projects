@@ -20,6 +20,7 @@ class FThwomp extends FGameObject {
   void animate() {
     if (player.getX() <= 32 && player.getY() >= 160) {
       setStatic(false);
+      setSensor(true);
       attachImage(wake[frame]);
     } else {
       attachImage(sleep[frame]);
