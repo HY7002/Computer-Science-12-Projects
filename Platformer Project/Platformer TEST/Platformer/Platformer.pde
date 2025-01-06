@@ -22,6 +22,8 @@ color grassFloor = #34a834;
 color dirtFloor = #9e6a42;
 color bridgeFloor = #800080;
 color spikeFloor = #ff1493;
+color wallRed = #ff0000;
+color goombaYellow = #ffa200;
 
 // Teleporter Color
 color teleporterStage1Floor = #ff00ff;
@@ -36,6 +38,9 @@ PImage spawn, lobby, stage1;
 // Teleporter PImages
 PImage teleportToStage1;
 PImage S1returnToLobby;
+
+// Goomba Animation
+PImage[] goomba;
 
 int gridSize = 32;
 float scale = 1.5;
@@ -68,6 +73,16 @@ void setup() {
   // Teleporter Asset Loader
   teleportToStage1 = loadImage("teleporter.png");
   S1returnToLobby = loadImage("teleporter.png");
+  
+  // GOOMBA IMAGE LOADER
+  goomba = new PImage[2];
+  goomba[0] = loadImage("goomba0.png");
+  goomba[0].resize(gridSize, gridSize);
+  goomba[1] = loadImage("goomba1.png");
+  goomba[1].resize(gridSize, gridSize);
+  
+  PImage pic = loadImage("goomba0.png");
+  reverseImage(pic).save("goomba1.png");
 
   terrain = new ArrayList<FGameObject>();
   enemies = new ArrayList<FGameObject>();
@@ -119,6 +134,12 @@ void loadWorld(PImage img) {
         b.setFriction(4);
         world.add(b);
       }
+      
+     if (c == wallRed) {
+       b.attachImage(grass);
+       b.setName("wall");
+       world.add(b);
+     }
     }
   }
 
@@ -189,7 +210,21 @@ void loadWorld(PImage img) {
         b.setName("S1returnToLobby");
         b.setFriction(4);
         world.add(b);
-      }      
+      }
+      
+      // GOOMBAS
+      if (c == goombaYellow) {
+        FGoomba gmb = new FGoomba(x*gridSize, y*gridSize);
+        enemies.add(gmb);
+        world.add(gmb);
+      }
+      
+      // Wall
+      if (c == wallRed) {
+        b.attachImage(stone);
+        b.setName("wall");
+        world.add(b);
+      }
     }
   }
 }
@@ -200,8 +235,7 @@ void loadPlayer() {
   world.add(player);
 }
 
-void draw() {
-  background(255);
+void draw() {  
   drawWorld();
   actWorld();
 }
@@ -219,6 +253,7 @@ void actWorld() {
 }
 
 void drawWorld() {
+  
   pushMatrix();
   translate(-player.getX()*scale+width/2, -player.getY()*scale+height/2);
   scale(scale);

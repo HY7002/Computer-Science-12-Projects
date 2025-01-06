@@ -34,6 +34,7 @@ class FPlayer extends FGameObject {
     if (isTouching("spike")) {
       setPosition(310, -10);
       setVelocity(0, 0);
+      player.setPosition(95, 159);
     }
 // SPAWNER TELEPORTER =================================================    
     if (isTouching("invisBarrier")) {
@@ -53,7 +54,7 @@ class FPlayer extends FGameObject {
     if (isTouching("S1returnToLobby")) {
       loadWorld(lobby);
       loadPlayer();
-      player.setPosition(33, 927);
+      player.setPosition(1884, 415);
     }    
   }
 
