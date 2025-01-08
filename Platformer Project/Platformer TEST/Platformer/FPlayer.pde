@@ -1,7 +1,7 @@
 int x, y;
 
 class FPlayer extends FGameObject {
-  
+
   int frame;
   int direction;
   final int L = -1;
@@ -36,26 +36,26 @@ class FPlayer extends FGameObject {
       setVelocity(0, 0);
       player.setPosition(95, 159);
     }
-// SPAWNER TELEPORTER =================================================    
+    // SPAWNER TELEPORTER =================================================
     if (isTouching("invisBarrier")) {
-      loadWorld(lobby);      
+      loadWorld(lobby);
       loadPlayer();
       player.setPosition(33, 927);
     }
 
-// LOBBY 1 TELEPORTATION ==============================================        
+    // LOBBY 1 TELEPORTATION ==============================================
     if (isTouching("teleportToStage1")) {
       loadWorld(stage1);
       loadPlayer();
       player.setPosition(95, 159);
     }
 
-// STAGE 1 TELEPORTATION ===============================================    
+    // STAGE 1 TELEPORTATION ===============================================
     if (isTouching("S1returnToLobby")) {
       loadWorld(lobby);
       loadPlayer();
       player.setPosition(1884, 415);
-    }    
+    }
   }
 
   void input() {
@@ -63,7 +63,7 @@ class FPlayer extends FGameObject {
     float vy = getVelocityY();
     if (abs(vy) < 0.1) {
     }
-    
+
     if (akey) {
       setVelocity(-200, vy);
       direction = L;
@@ -75,7 +75,8 @@ class FPlayer extends FGameObject {
     if (wkey) {
       setVelocity(vx, -250);
     }
-     if (spaceBar) {
+
+    if (spaceBar) {
       println(getX(), getY());
     }
   }

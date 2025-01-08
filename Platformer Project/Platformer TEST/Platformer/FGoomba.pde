@@ -36,7 +36,7 @@ class FGoomba extends FGameObject {
         world.remove(this);
         enemies.remove(this);
       } else {
-        player.setPosition(300, 0);
+        player.setPosition(95, 159);
       }
     }
   }

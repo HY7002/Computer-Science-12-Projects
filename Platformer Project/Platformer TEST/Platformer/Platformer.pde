@@ -11,9 +11,6 @@ color orange = #F0A000;
 color brown = #996633;
 
 
-// MODE FUNCTIONS \\
-int mode;
-
 //MAP COLOR\\
 // FLOOR COLOR
 color stoneFloor = #969696;
@@ -88,13 +85,13 @@ void setup() {
   enemies = new ArrayList<FGameObject>();
 
   // MAP LOADER
-  loadWorld(spawn);
+  loadWorld(stage1);
 
   loadPlayer();
 }
 
 void loadWorld(PImage img) {
-  world = new FWorld(-50000, -50000, 50000, 50000);
+  world = new FWorld(-20000, -20000, 20000, 20000);
   world.setGravity(0, 900);
 
   // SPAWN ===================================================
@@ -142,7 +139,6 @@ void loadWorld(PImage img) {
      }
     }
   }
-
 
   // LOBBY ===================================================
   for (int y = 0; y < lobby.height; y++) {
@@ -221,7 +217,7 @@ void loadWorld(PImage img) {
       
       // Wall
       if (c == wallRed) {
-        b.attachImage(stone);
+        b.attachImage(grass);
         b.setName("wall");
         world.add(b);
       }
@@ -235,7 +231,8 @@ void loadPlayer() {
   world.add(player);
 }
 
-void draw() {  
+void draw() {
+  background(135, 206, 235);
   drawWorld();
   actWorld();
 }
