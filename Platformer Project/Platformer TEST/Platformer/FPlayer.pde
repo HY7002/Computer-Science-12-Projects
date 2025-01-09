@@ -19,6 +19,7 @@ class FPlayer extends FGameObject {
   void act() {
     handleInput();
     collisions();
+    animate();
     input();
   }
 
@@ -57,23 +58,37 @@ class FPlayer extends FGameObject {
       player.setPosition(1884, 415);
     }
   }
+  
+
+  void animate() {
+    if (frame >= action.length) frame = 0;
+    if (frameCount % 5 == 0) {
+      if (direction == R) attachImage(action[frame]);
+      if (direction == L) attachImage(reverseImage(action[frame]));
+      frame++;
+    }
+  }  
 
   void input() {
     float vx = getVelocityX();
     float vy = getVelocityY();
     if (abs(vy) < 0.1) {
+      action = idle;
     }
 
     if (akey) {
       setVelocity(-200, vy);
+      action = run;
       direction = L;
     }
     if (dkey) {
       setVelocity(200, vy);
+      action = run;
       direction = R;
     }
     if (wkey) {
       setVelocity(vx, -250);
+      action = jump;
     }
 
     if (spaceBar) {

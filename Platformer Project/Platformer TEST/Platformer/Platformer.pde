@@ -20,7 +20,7 @@ color dirtFloor = #9e6a42;
 color bridgeFloor = #800080;
 color spikeFloor = #ff1493;
 color wallRed = #ff0000;
-color goombaYellow = #ffa200;
+color zoombieYellow = #ffa200;
 
 // Teleporter Color
 color teleporterStage1Floor = #ff00ff;
@@ -36,8 +36,14 @@ PImage spawn, lobby, stage1;
 PImage teleportToStage1;
 PImage S1returnToLobby;
 
-// Goomba Animation
-PImage[] goomba;
+// MAIN CHARACTER ANIMATIONS
+PImage[] idle;
+PImage[] jump;
+PImage[] run;
+PImage[] action;
+
+// Zombie Animation
+PImage[] zombie;
 
 int gridSize = 32;
 float scale = 1.5;
@@ -70,16 +76,35 @@ void setup() {
   // Teleporter Asset Loader
   teleportToStage1 = loadImage("teleporter.png");
   S1returnToLobby = loadImage("teleporter.png");
+
+  // CHARACTER IMAGE LOADER
+  idle = new PImage[1];
+  idle[0] = loadImage("idle0.png");
   
-  // GOOMBA IMAGE LOADER
-  goomba = new PImage[2];
-  goomba[0] = loadImage("goomba0.png");
-  goomba[0].resize(gridSize, gridSize);
-  goomba[1] = loadImage("goomba1.png");
-  goomba[1].resize(gridSize, gridSize);
+  jump = new PImage[1];
+  jump[0] = loadImage("jump0.png");
   
-  PImage pic = loadImage("goomba0.png");
-  reverseImage(pic).save("goomba1.png");
+  run = new PImage[4];
+  run[0] = loadImage("runright0.png");
+  run[1] = loadImage("runright1.png");
+  run[2] = loadImage("runright2.png");
+  run[3] = loadImage("runright3.png");
+  
+  action = idle;
+
+  // ZOOMBIE IMAGE LOADER
+  zombie = new PImage[4];
+  zombie[0] = loadImage("zombie0.png");
+  zombie[0].resize(gridSize, gridSize);
+  zombie[1] = loadImage("zombie1.png");
+  zombie[1].resize(gridSize, gridSize);
+  zombie[2] = loadImage("zombie2.png");
+  zombie[2].resize(gridSize, gridSize);
+  zombie[3] = loadImage("zombie3.png");
+  zombie[3].resize(gridSize, gridSize);
+
+  //PImage pic = loadImage("goomba0.png");
+  //reverseImage(pic).save("goomba1.png");
 
   terrain = new ArrayList<FGameObject>();
   enemies = new ArrayList<FGameObject>();
@@ -131,12 +156,19 @@ void loadWorld(PImage img) {
         b.setFriction(4);
         world.add(b);
       }
+
+      if (c == wallRed) {
+        b.attachImage(grass);
+        b.setName("wall");
+        world.add(b);
+      }
       
-     if (c == wallRed) {
-       b.attachImage(grass);
-       b.setName("wall");
-       world.add(b);
-     }
+      // ZOMBIES
+      if (c == zoombieYellow) {
+        FZombie zmb = new FZombie(x*gridSize, y*gridSize);
+        enemies.add(zmb);
+        world.add(zmb);
+      } 
     }
   }
 
@@ -175,7 +207,7 @@ void loadWorld(PImage img) {
         b.setName("teleportToStage1");
         b.setFriction(4);
         world.add(b);
-      }
+      }     
     }
   }
 
@@ -200,7 +232,7 @@ void loadWorld(PImage img) {
         terrain.add(br);
         world.add(br);
       }
-      
+
       if (c == S1LobTPFloor) {
         b.attachImage(S1returnToLobby);
         b.setName("S1returnToLobby");
@@ -208,19 +240,12 @@ void loadWorld(PImage img) {
         world.add(b);
       }
       
-      // GOOMBAS
-      if (c == goombaYellow) {
-        FGoomba gmb = new FGoomba(x*gridSize, y*gridSize);
-        enemies.add(gmb);
-        world.add(gmb);
-      }
-      
       // Wall
       if (c == wallRed) {
         b.attachImage(grass);
         b.setName("wall");
         world.add(b);
-      }
+      }      
     }
   }
 }
@@ -232,7 +257,7 @@ void loadPlayer() {
 }
 
 void draw() {
-  background(135, 206, 235);
+  background(120, 167, 255);
   drawWorld();
   actWorld();
 }
@@ -250,7 +275,7 @@ void actWorld() {
 }
 
 void drawWorld() {
-  
+
   pushMatrix();
   translate(-player.getX()*scale+width/2, -player.getY()*scale+height/2);
   scale(scale);
