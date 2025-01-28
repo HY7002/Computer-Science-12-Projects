@@ -3,9 +3,12 @@ import java.awt.Robot;
 Robot rbt;
 boolean skipFrame;
 
-boolean wkey, akey, skey, dkey;
+boolean wkey, akey, skey, dkey, spaceBar;
 float eyeX, eyeY, eyeZ, focusX, focusY, focusZ, tiltX, tiltY, tiltZ;
 float leftRightHeadAngle, upDownHeadAngle;
+
+// Game Objects
+ArrayList<GameObject> objects;
 
 // Color Pallette
 color white = #FFFFFF; // Empty Space
@@ -18,10 +21,14 @@ int gridSize;
 PImage map;
 PImage stone, log, diamond;
 
-void setup() {
+void setup() { 
   size(800, 600, P3D);
   fullScreen(P3D);
   textureMode(NORMAL);
+  
+  // Create Game Object List
+  objects = new ArrayList<GameObject>();
+  
   wkey = akey = skey = dkey = false;
   eyeX = width/2;
   eyeY = 9*height/10;
@@ -35,7 +42,7 @@ void setup() {
   tiltY = 1;
   tiltZ = 0;
   leftRightHeadAngle = radians(270);
-  noCursor();
+  //noCursor();
 
   // Initialize Map Textures
   map = loadImage("map.png");
@@ -67,6 +74,18 @@ void draw() {
   //controlCamera();
   move();
   drawMap();
+  
+  int i = 0;
+  while (i < objects.size()) {
+    GameObject obj = objects.get(i);
+    obj.act();
+    obj.show();
+    if (obj.lives == 0) {
+      objects.remove(i);
+    } else {
+      i++;
+    }
+  }
 }
 
 void drawMap() {
@@ -232,6 +251,7 @@ void keyPressed() {
   if (key == 'A' || key == 'a') akey = true;
   if (key == 'S' || key == 's') skey = true;
   if (key == 'D' || key == 'd') dkey = true;
+  if (key == ' ' || key == ' ') spaceBar = true;
 }
 
 void keyReleased() {
@@ -239,4 +259,5 @@ void keyReleased() {
   if (key == 'A' || key == 'a') akey = false;
   if (key == 'S' || key == 's') skey = false;
   if (key == 'D' || key == 'd') dkey = false;
+  if (key == ' ' || key == ' ') spaceBar = false;
 }
